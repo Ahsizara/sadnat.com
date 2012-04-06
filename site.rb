@@ -12,8 +12,12 @@ configure do
   DB = Sequel.connect(ENV['DATABASE_URL'] || 'sqlite://db/data.db')
 
   # Twiter Keys
-  CONS_KEY = 'aPtehhMPyIGjjKnAngkkQ'
-  CONS_SEC = ENV['TWITTER_SECRET']
+  T_KEY = 'aPtehhMPyIGjjKnAngkkQ'
+  T_SEC = ENV['TWITTER_SECRET']
+
+  # GOOGLE Keys
+  G_KEY = '209366713876.apps.googleusercontent.com'
+  G_SEC = ENV['GOOGLE_SECRET']
 end
 
 # Define helper methods for views
@@ -36,7 +40,8 @@ end
 
 # Stuff to do before routing requests.
 use OmniAuth::Builder do
-  provider :twitter,  CONS_KEY, CONS_SEC
+  provider :twitter, T_KEY, T_SEC
+  provider :google_oauth2, G_KEY, G_SEC, {access_type: 'online', approval_prompt: ''}
 end
 
 # Main index, lists all entries
